@@ -30,6 +30,8 @@ abstract class Block
     protected $properties = [];
 
     /**
+     * Create a new block instance.
+     *
      * @param PdfLibAdapter $adapter
      * @param PdiPage $page
      * @param array $properties

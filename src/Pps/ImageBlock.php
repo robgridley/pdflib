@@ -5,7 +5,7 @@ namespace Pdf\Pps;
 class ImageBlock extends Block
 {
     /**
-     * Fill the block with an Image.
+     * Fill the block with an image.
      *
      * @param \Pdf\Image $contents
      * @param array $options

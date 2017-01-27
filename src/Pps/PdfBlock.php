@@ -5,7 +5,7 @@ namespace Pdf\Pps;
 class PdfBlock extends Block
 {
     /**
-     * Fill the block with a Pdf page.
+     * Fill the block with a PDF page.
      *
      * @param \Pdf\Pdi\PdiPage $contents
      * @param array $options
