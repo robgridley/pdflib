@@ -1,0 +1,21 @@
+{
+    "name": "robgridley/pdflib",
+    "description": "PDFlib made usable.",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Rob Gridley",
+            "email": "me@robgridley.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.6.0",
+        "ext-pdflib": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pdf\\": "src/"
+        }
+    }
+}
