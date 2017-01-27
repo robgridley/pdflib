@@ -25,7 +25,7 @@ class Image extends Asset
      */
     protected function unload()
     {
-        if ( ! $this->adapter->isScope('object')) {
+        if (!$this->adapter->isScope('object')) {
             $this->adapter->closeImage($this);
         }
     }

@@ -25,7 +25,7 @@ class PdfBuilder implements ArrayAccess
     public function __construct(PdfLibAdapter $adapter, array $options = [])
     {
         $this->adapter = $adapter;
-        
+
         $this->adapter->beginDocument(null, $options);
     }
 
@@ -68,7 +68,7 @@ class PdfBuilder implements ArrayAccess
      */
     public function loadGraphics($contents, $type = 'auto', array $options = [])
     {
-        return new Graphics($this->adapter, $contents, $type , $options);
+        return new Graphics($this->adapter, $contents, $type, $options);
     }
 
     /**
