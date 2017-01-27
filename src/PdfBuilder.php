@@ -174,7 +174,7 @@ class PdfBuilder implements ArrayAccess
     /**
      * Set a global option.
      *
-     * @param mixed $key
+     * @param string $key
      * @param mixed $value
      */
     public function offsetSet($key, $value)
@@ -185,7 +185,7 @@ class PdfBuilder implements ArrayAccess
     /**
      * Required by the ArrayAccess interface.
      *
-     * @param mixed $key
+     * @param string $key
      * @throws LogicException when called.
      */
     public function offsetUnset($key)

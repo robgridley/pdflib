@@ -172,7 +172,7 @@ class PdiPage implements Handleable
     /**
      * Get the specified property.
      *
-     * @param mixed $key
+     * @param string $key
      * @param array $options
      * @return float
      */

@@ -35,7 +35,7 @@ class Pcos
     /**
      * Get the value(s) for the given path.
      *
-     * @param string $path
+     * @param mixed $path
      * @return mixed
      */
     public function getValue($path)
@@ -63,7 +63,7 @@ class Pcos
     /**
      * Get the value type for the given path.
      *
-     * @param $path
+     * @param mixed $path
      * @return string
      */
     public function getType($path)
@@ -80,7 +80,7 @@ class Pcos
      * fstream  Same as stream.
      * other    Always returns 0.
      *
-     * @param $path
+     * @param mixed $path
      * @return int
      */
     public function getLength($path)
@@ -91,7 +91,7 @@ class Pcos
     /**
      * Get an array value.
      *
-     * @param string $path
+     * @param mixed $path
      * @return array
      */
     protected function getArrayValue($path)
@@ -109,7 +109,7 @@ class Pcos
     /**
      * Get a dictionary (associative array) value.
      *
-     * @param string $path
+     * @param mixed $path
      * @return PcosDictionary
      */
     protected function getDictionaryValue($path)
@@ -120,7 +120,7 @@ class Pcos
     /**
      * Get a string value.
      *
-     * @param $path
+     * @param mixed $path
      * @return string
      */
     public function getStringValue($path)
@@ -131,7 +131,7 @@ class Pcos
     /**
      * Get a numeric value.
      *
-     * @param $path
+     * @param mixed $path
      * @return float
      */
     public function getNumberValue($path)
@@ -142,7 +142,7 @@ class Pcos
     /**
      * Get a stream value.
      *
-     * @param $path
+     * @param mixed $path
      * @return string
      */
     public function getStreamValue($path)

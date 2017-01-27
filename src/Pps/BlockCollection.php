@@ -48,6 +48,8 @@ class BlockCollection implements IteratorAggregate, ArrayAccess
     }
 
     /**
+     * Get an iterator for the blocks.
+     *
      * @return ArrayIterator
      */
     public function getIterator()
