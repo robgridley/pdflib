@@ -25,7 +25,7 @@ class Graphics extends Asset
      */
     protected function unload()
     {
-        if ( ! $this->adapter->isScope('object')) {
+        if (!$this->adapter->isScope('object')) {
             $this->adapter->closeGraphics($this);
         }
     }
