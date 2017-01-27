@@ -9,10 +9,11 @@ This package is provided as-is. It will receive regular updates, but these updat
 This example creates a new PDF, places a page from an existing PDF, and uses PDFlib PPS to fill a text block.
 
 ```php
+use PDFlib;
 use Pdf\PdfBuilder;
 use Pdf\PdfLibAdapter;
 
-$adapter = new PdfLibAdapter;
+$adapter = new PdfLibAdapter(new PDFlib);
 $pdf = new PdfBuilder($adapter);
 
 $document = $pdf->import(file_get_contents('test.pdf'));
