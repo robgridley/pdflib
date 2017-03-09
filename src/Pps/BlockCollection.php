@@ -2,13 +2,14 @@
 
 namespace Pdf\Pps;
 
+use Countable;
 use ArrayAccess;
 use ArrayIterator;
 use LogicException;
 use IteratorAggregate;
 use InvalidArgumentException;
 
-class BlockCollection implements IteratorAggregate, ArrayAccess
+class BlockCollection implements IteratorAggregate, ArrayAccess, Countable
 {
     /**
      * The block instances.
@@ -31,6 +32,16 @@ class BlockCollection implements IteratorAggregate, ArrayAccess
 
             $this->blocks[$block->name] = $block;
         }
+    }
+
+    /**
+     * Count the number of blocks in the collection.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->blocks);
     }
 
     /**
