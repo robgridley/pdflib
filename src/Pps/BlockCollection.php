@@ -113,6 +113,21 @@ class BlockCollection implements IteratorAggregate, ArrayAccess
     }
 
     /**
+     * Filter blocks by the specified type.
+     *
+     * @param string $type
+     * @return BlockCollection
+     */
+    public function ofType($type)
+    {
+        $blocks = array_filter($this->blocks, function ($block) use ($type) {
+            return is_a($block, $type);
+        });
+
+        return $this->newCollection($blocks);
+    }
+
+    /**
      * Convert the instance to an array.
      *
      * @return array
@@ -120,5 +135,16 @@ class BlockCollection implements IteratorAggregate, ArrayAccess
     public function toArray()
     {
         return $this->blocks;
+    }
+
+    /**
+     * Create a new collection instance.
+     *
+     * @param array $blocks
+     * @return static
+     */
+    protected function newCollection(array $blocks)
+    {
+        return new static($blocks);
     }
 }
