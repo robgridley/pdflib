@@ -17,16 +17,14 @@ class PdfLibAdapter
     /**
      * Create a new adapter instance.
      *
-     * @param PDFlib $lib
-     * @param string $licenseKey
+     * @param PDFlib|null $lib
      */
-    public function __construct(PDFlib $lib, $licenseKey = '0')
+    public function __construct(PDFlib $lib = null)
     {
-        $this->lib = $lib;
+        $this->lib = $lib ?: new PDFlib;
 
         $this->setOption('errorPolicy', 'exception');
         $this->setOption('stringFormat', 'utf8');
-        $this->setOption('license', $licenseKey);
     }
 
     /**
