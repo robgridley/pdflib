@@ -19,12 +19,12 @@ class PdfBuilder implements ArrayAccess
     /**
      * Create a new instance.
      *
-     * @param PdfLibAdapter $adapter
+     * @param PdfLibAdapter|null $adapter
      * @param array $options
      */
-    public function __construct(PdfLibAdapter $adapter, array $options = [])
+    public function __construct(PdfLibAdapter $adapter = null, array $options = [])
     {
-        $this->adapter = $adapter;
+        $this->adapter = $adapter ?: new PdfLibAdapter;
 
         $this->adapter->beginDocument(null, $options);
     }

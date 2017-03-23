@@ -10,10 +10,8 @@ This example creates a new PDF, places a page from an existing PDF, and uses PDF
 
 ```php
 use Pdf\PdfBuilder;
-use Pdf\PdfLibAdapter;
 
-$adapter = new PdfLibAdapter;
-$pdf = new PdfBuilder($adapter);
+$pdf = new PdfBuilder;
 
 $document = $pdf->import(file_get_contents('test.pdf'));
 $page = $document->page(1, ['cloneBoxes']);
