@@ -15,6 +15,16 @@ class PdfLibAdapter
     protected $lib;
 
     /**
+     * The default options.
+     *
+     * @var array
+     */
+    protected static $defaults = [
+        'errorPolicy' => 'exception',
+        'stringFormat' => 'utf8',
+    ];
+
+    /**
      * Create a new adapter instance.
      *
      * @param PDFlib|null $lib
@@ -23,8 +33,28 @@ class PdfLibAdapter
     {
         $this->lib = $lib ?: new PDFlib;
 
-        $this->setOption('errorPolicy', 'exception');
-        $this->setOption('stringFormat', 'utf8');
+        $this->applyDefaults();
+    }
+
+    /**
+     * Set the specified default option.
+     *
+     * @param string $key
+     * @param mixed $value
+     */
+    public static function setDefault($key, $value)
+    {
+        static::$defaults[$key] = $value;
+    }
+
+    /**
+     * Apply default options.
+     */
+    protected function applyDefaults()
+    {
+        foreach (static::$defaults as $key => $value) {
+            $this->setOption($key, $value);
+        }
     }
 
     /**
@@ -41,7 +71,7 @@ class PdfLibAdapter
     /**
      * Wrapper for PDFlib::get_option.
      *
-     * @param $key
+     * @param string $key
      * @param array $options
      * @return mixed
      */
