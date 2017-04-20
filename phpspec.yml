@@ -1,0 +1,4 @@
+suites:
+  pdf_suite:
+    namespace: Pdf
+    psr4_prefix: Pdf

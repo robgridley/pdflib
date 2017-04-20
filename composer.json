@@ -17,5 +17,8 @@
         "psr-4": {
             "Pdf\\": "src/"
         }
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^3.2"
     }
 }
