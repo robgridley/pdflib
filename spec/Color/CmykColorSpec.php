@@ -10,7 +10,7 @@ class CmykColorSpec extends ObjectBehavior
 {
     function it_creates_cmyk_colors()
     {
-        $this->beConstructedWith(30, 20, 10, 40);
-        $this->__toString()->shouldReturn('{ cmyk 30 20 10 40 }');
+        $this->beConstructedWith(30, 21, 10, 44);
+        $this->__toString()->shouldReturn('{cmyk 0.3 0.21 0.1 0.44}');
     }
 }

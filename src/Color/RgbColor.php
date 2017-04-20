@@ -20,6 +20,10 @@ class RgbColor extends Color
      */
     public function __construct($red, $green, $blue)
     {
+        $red /= 255;
+        $green /= 255;
+        $blue /= 255;
+
         $this->values = compact('red', 'green', 'blue');
     }
 }

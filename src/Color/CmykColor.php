@@ -21,6 +21,11 @@ class CmykColor extends Color
      */
     public function __construct($cyan, $magenta, $yellow, $black)
     {
+        $cyan /= 100;
+        $magenta /= 100;
+        $yellow /= 100;
+        $black /= 100;
+
         $this->values = compact('cyan', 'magenta', 'yellow', 'black');
     }
 }

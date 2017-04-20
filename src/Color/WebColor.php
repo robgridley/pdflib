@@ -2,8 +2,15 @@
 
 namespace Pdf\Color;
 
-class WebColor extends Color
+class WebColor
 {
+    /**
+     * The color value.
+     *
+     * @var string
+     */
+    protected $value;
+
     /**
      * Create a new color instance.
      *
@@ -11,6 +18,16 @@ class WebColor extends Color
      */
     public function __construct($colorNameOrHexValue)
     {
-        $this->values = compact('colorNameOrHexValue');
+        $this->value = $colorNameOrHexValue;
+    }
+
+    /**
+     * Convert the instance to a string.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->value;
     }
 }
