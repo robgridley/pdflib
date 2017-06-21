@@ -86,4 +86,24 @@ abstract class Block
      * @param array $options
      */
     abstract public function fill($contents, array $options = []);
+
+    /**
+     * Get the width of the block.
+     *
+     * @return float
+     */
+    public function getWidth()
+    {
+        return $this->properties['rect'][2] - $this->properties['rect'][0];
+    }
+
+    /**
+     * Get the height of the block.
+     *
+     * @return float
+     */
+    public function getHeight()
+    {
+        return $this->properties['rect'][3] - $this->properties['rect'][1];
+    }
 }
