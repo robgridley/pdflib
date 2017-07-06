@@ -149,7 +149,7 @@ class PdfLibAdapter
     /**
      * Wrapper for PDFlib::begin_document.
      *
-     * @param null $filename
+     * @param string $filename
      * @param array $options
      */
     public function beginDocument($filename = null, $options = [])
@@ -374,12 +374,10 @@ class PdfLibAdapter
      */
     public function fillPdfBlock($page, $name, $contents, $options = [])
     {
-        $this->lib->fill_pdfblock(
-            $this->getHandleFrom($page),
-            $name,
-            $this->getHandleFrom($contents),
-            $this->createOptionList($options)
-        );
+        $page = $this->getHandleFrom($page);
+        $contents = $this->getHandleFrom($contents);
+
+        $this->lib->fill_pdfblock($page, $name, $contents, $this->createOptionList($options));
     }
 
     /**
@@ -392,12 +390,10 @@ class PdfLibAdapter
      */
     public function fillImageBlock($page, $name, $contents, $options = [])
     {
-        $this->lib->fill_imageblock(
-            $this->getHandleFrom($page),
-            $name,
-            $this->getHandleFrom($contents),
-            $this->createOptionList($options)
-        );
+        $page = $this->getHandleFrom($page);
+        $contents = $this->getHandleFrom($contents);
+
+        $this->lib->fill_imageblock($page, $name, $contents, $this->createOptionList($options));
     }
 
     /**
@@ -410,12 +406,10 @@ class PdfLibAdapter
      */
     public function fillGraphicsBlock($page, $name, $contents, $options = [])
     {
-        $this->lib->fill_graphicsblock(
-            $this->getHandleFrom($page),
-            $name,
-            $this->getHandleFrom($contents),
-            $this->createOptionList($options)
-        );
+        $page = $this->getHandleFrom($page);
+        $contents = $this->getHandleFrom($contents);
+
+        $this->lib->fill_graphicsblock($page, $name, $contents, $this->createOptionList($options));
     }
 
     /**
@@ -451,11 +445,7 @@ class PdfLibAdapter
      */
     public function infoImage($image, $key, $options = [])
     {
-        return $this->lib->info_image(
-            $this->getHandleFrom($image),
-            $key,
-            $this->createOptionList($options)
-        );
+        return $this->lib->info_image($this->getHandleFrom($image), $key, $this->createOptionList($options));
     }
 
     /**
@@ -515,9 +505,155 @@ class PdfLibAdapter
      * @param array $options
      * @return int
      */
-    public function loadFont($name, $encoding = 'unicode', array $options = [])
+    public function loadFont($name, $encoding, array $options = [])
     {
         return $this->lib->load_font($name, $encoding, $this->createOptionList($options));
+    }
+
+    /**
+     * Wrapper for PDFlib::info_font.
+     *
+     * @param int|Handleable $font
+     * @param string $key
+     * @param array $options
+     * @return mixed
+     */
+    public function infoFont($font, $key, array $options = [])
+    {
+        return $this->lib->info_font($this->getHandleFrom($font), $key, $this->createOptionList($options));
+    }
+
+    /**
+     * Wrapper for PDFlib::close_font.
+     *
+     * @param int|Handleable $font
+     */
+    public function closeFont($font)
+    {
+        $this->lib->close_font($this->getHandleFrom($font));
+    }
+
+    /**
+     * Wrapper for PDFlib::set_text_option.
+     *
+     * @param array $options
+     */
+    public function setTextOption(array $options)
+    {
+        $this->lib->set_text_option($this->createOptionList($options));
+    }
+
+    /**
+     * Wrapper for PDFlib::add_textflow.
+     *
+     * @param int $textflow
+     * @param string $text
+     * @param array $options
+     * @return int
+     */
+    public function addTextflow($textflow = 0, $text = null, array $options = [])
+    {
+        return $this->lib->add_textflow($this->getHandleFrom($textflow), $text, $this->createOptionList($options));
+    }
+
+    /**
+     * Wrapper for PDFlib::create_textflow.
+     *
+     * @param string $text
+     * @param array $options
+     * @return int
+     */
+    public function createTextflow($text = null, array $options = [])
+    {
+        return $this->lib->create_textflow($text, $this->createOptionList($options));
+    }
+
+    /**
+     * Wrapper for PDFlib::fit_textflow.
+     *
+     * @param int|Handleable $textflow
+     * @param float $llx
+     * @param float $lly
+     * @param float $urx
+     * @param float $ury
+     * @param array $options
+     * @return string
+     */
+    public function fitTextflow($textflow, $llx, $lly, $urx, $ury, array $options = [])
+    {
+        $textflow = $this->getHandleFrom($textflow);
+
+        return $this->lib->fit_textflow($textflow, $llx, $lly, $urx, $ury, $this->createOptionList($options));
+    }
+
+    /**
+     * Wrapper for PDFlib::info_textflow.
+     *
+     * @param int|Handleable $textflow
+     * @param string $key
+     * @return mixed
+     */
+    public function infoTextflow($textflow, $key)
+    {
+        return $this->lib->info_textflow($this->getHandleFrom($textflow), $key);
+    }
+
+    /**
+     * Wrapper for PDFlib::add_table_cell.
+     *
+     * @param int|Handleable $table
+     * @param int $column
+     * @param int $row
+     * @param string $text
+     * @param array $options
+     * @return int
+     */
+    public function addTableCell($table, $column, $row, $text, array $options = [])
+    {
+        $table = $this->getHandleFrom($table);
+
+        return $this->lib->add_table_cell($table, $column, $row, $text, $this->createOptionList($options));
+    }
+
+    /**
+     * Wrapper for PDFlib::fit_table.
+     *
+     * @param int|Handleable $table
+     * @param float $llx
+     * @param float $lly
+     * @param float $urx
+     * @param float $ury
+     * @param array $options
+     * @return string
+     */
+    public function fitTable($table, $llx, $lly, $urx, $ury, array $options = [])
+    {
+        $table = $this->getHandleFrom($table);
+
+        return $this->lib->fit_table($table, $llx, $lly, $urx, $ury, $this->createOptionList($options));
+    }
+
+    /**
+     * Wrapper for PDFlib::info_table.
+     *
+     * @param int|Handleable $table
+     * @param string $key
+     * @return mixed
+     */
+    public function infoTable($table, $key)
+    {
+        return $this->lib->info_table($this->getHandleFrom($table), $key);
+    }
+
+    /**
+     * Wrapper for PDFlib::delete_table.
+     *
+     * @param int|Handleable $table
+     * @param array $options
+     */
+    public function deleteTable($table, array $options = [])
+    {
+        $this->lib->delete_table($this->getHandleFrom($table), $this->createOptionList($options));
     }
 
     /**
@@ -533,11 +669,10 @@ class PdfLibAdapter
 
         foreach ($options as $key => &$value) {
             if (is_int($key)) {
-                $key = $value;
-                $value = true;
+                $value = $this->formatOptionListValue($value);
+            } else {
+                $value = $key . '=' . $this->formatOptionListValue($value);
             }
-
-            $value = $key . '=' . $this->formatOptionListValue($value);
         }
 
         return implode(' ', $options);
@@ -556,14 +691,22 @@ class PdfLibAdapter
         }
 
         if (is_array($value)) {
-            return '{' . implode(' ', $value) . '}';
+            return '{' . $this->createOptionList($value) . '}';
+        }
+
+        if ($value instanceof Handleable) {
+            return $value->getHandle();
+        }
+
+        if (preg_match('/\s|=/', $value)) {
+            return '{' . $value . '}';
         }
 
         return $value;
     }
 
     /**
-     * Get the PDFlib handle.
+     * Get the PDFlib handle from the specified source.
      *
      * @param Handleable|int $source
      * @return int

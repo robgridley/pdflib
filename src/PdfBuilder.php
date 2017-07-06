@@ -6,6 +6,7 @@ use ArrayAccess;
 use LogicException;
 use Pdf\Pdi\PdiPage;
 use Pdf\Pdi\PdiDocument;
+use BadMethodCallException;
 
 class PdfBuilder implements ArrayAccess
 {
@@ -27,6 +28,21 @@ class PdfBuilder implements ArrayAccess
         $this->adapter = $adapter ?: new PdfLibAdapter;
 
         $this->adapter->beginDocument(null, $options);
+    }
+
+    /**
+     * Handle calls to inaccessible methods by passing them to the PDFlib adapter.
+     *
+     * @param string $method
+     * @param array $arguments
+     */
+    public function __call($method, array $arguments)
+    {
+        if (method_exists($this->adapter, $method)) {
+            return $this->adapter->$method(...$arguments);
+        }
+
+        throw new BadMethodCallException("Method [$method] does not exist");
     }
 
     /**
@@ -72,6 +88,19 @@ class PdfBuilder implements ArrayAccess
     }
 
     /**
+     * Load a font file.
+     *
+     * @param string $name
+     * @param string $encoding
+     * @param array $options
+     * @return Font
+     */
+    public function loadFont($name, $encoding, $options = [])
+    {
+        return new Font($this->adapter, $name, $encoding, $options);
+    }
+
+    /**
      * Import a document.
      *
      * @param string $contents
@@ -97,20 +126,43 @@ class PdfBuilder implements ArrayAccess
     }
 
     /**
-     * Place graphics into the page at the specified coordinates.
+     * Place a graphic on the current page.
      *
      * @param Graphics $graphic
      * @param float $x
      * @param float $y
-     * @param float $w
-     * @param float $h
+     * @param float $width
+     * @param float $height
      * @param array $options
      */
-    public function insertGraphics(Graphics $graphic, $x = 0.0, $y = 0.0, $w = 0.0, $h = 0.0, array $options = [])
+    public function placeGraphics(Graphics $graphic, $x, $y, $width, $height, array $options = [])
     {
-        $options['boxSize'] = [$w, $h];
+        $options['boxSize'] = [$width, $height];
 
         $this->adapter->fitGraphics($graphic, $x, $y, $options);
+    }
+
+    /**
+     * Place a table on the current page.
+     *
+     * @param Table $table
+     * @param float $x
+     * @param float $y
+     * @param float $width
+     * @param float $height
+     * @param array $options
+     * @return string
+     */
+    public function placeTable(Table $table, $x, $y, $width, $height, array $options = [])
+    {
+        $llx = $x;
+        $lly = $y + $height;
+        $urx = $x + $width;
+        $ury = $y;
+
+        $result = $this->adapter->fitTable($table, $llx, $lly, $urx, $ury, $options);
+
+        return $result == '_stop' ? false : true;
     }
 
     /**
