@@ -143,6 +143,16 @@ class PdfBuilder implements ArrayAccess
     }
 
     /**
+     * Create a new table instance.
+     *
+     * @return Table
+     */
+    public function makeTable()
+    {
+        return new Table($this->adapter);
+    }
+
+    /**
      * Place a table on the current page.
      *
      * @param Table $table
