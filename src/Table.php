@@ -28,13 +28,6 @@ class Table implements Handleable
     protected $row = 1;
 
     /**
-     * The column position.
-     *
-     * @var int
-     */
-    protected $column = 1;
-
-    /**
      * The default cell options.
      *
      * @var array
@@ -90,34 +83,47 @@ class Table implements Handleable
         $callback($this);
 
         $this->row++;
-        $this->column = 1;
     }
 
     /**
      * Add a column to the current row.
      *
-     * @param string $text
+     * @param int $column
+     * @param mixed $contents
+     * @param array $contentOptions
      * @param array $options
      */
-    public function addColumn($text, array $options)
+    public function addColumn($column, $contents, array $contentOptions = [], array $options = [])
     {
+        return $this->addCell($column, $this->row, $contents, $contentOptions, $options);
+    }
+
+    /**
+     * Add a cell.
+     *
+     * @param int $column
+     * @param int $row
+     * @param mixed $contents
+     * @param array $contentOptions
+     * @param array $options
+     */
+    public function addCell($column, $row, $contents, array $contentOptions = [], array $options = [])
+    {
+        if ($contents instanceof Image) {
+            $options['image'] = $contents;
+            $options['fitImage'] = $contentOptions;
+            $contents = null;
+        } elseif ($contents instanceof Graphics) {
+            $options['graphics'] = $contents;
+            $options['fitGraphics'] = $contentOptions;
+            $contents = null;
+        } else {
+            $options['fitTextline'] = array_merge($this->textOptions, $contentOptions);
+        }
+
         $options = array_merge($this->cellOptions, $options);
 
-        $this->handle = $this->adapter->addTableCell($this, $this->column++, $this->row, $text, $options);
-    }
-
-    /**
-     * Add a column to the current row.
-     *
-     * @param string $text
-     * @param array $textOptions
-     * @param array $options
-     */
-    public function addTextlineColumn($text, $textOptions = [], $options = [])
-    {
-        $options['fitTextline'] = array_merge($this->textOptions, $textOptions);
-
-        return $this->addColumn($text, $options);
+        $this->handle = $this->adapter->addTableCell($this, $column, $row, $contents, $options);
     }
 
     /**
