@@ -147,7 +147,7 @@ class PdfBuilder implements ArrayAccess
      *
      * @return Table
      */
-    public function makeTable()
+    public function newTable()
     {
         return new Table($this->adapter);
     }
@@ -173,6 +173,20 @@ class PdfBuilder implements ArrayAccess
         $result = $this->adapter->fitTable($table, $llx, $lly, $urx, $ury, $options);
 
         return $result == '_stop' ? false : true;
+    }
+
+    /**
+     * Create a new textflow instance.
+     *
+     * @param string $text
+     * @param Font $font
+     * @param float $size
+     * @param array $options
+     * @return Textflow
+     */
+    public function newTextflow(Font $font, $size, $text = null, array $options = [])
+    {
+        return new Textflow($this->adapter, $font, $size, $text, $options);
     }
 
     /**

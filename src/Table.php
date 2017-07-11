@@ -117,6 +117,10 @@ class Table implements Handleable
             $options['graphics'] = $contents;
             $options['fitGraphics'] = $contentOptions;
             $contents = null;
+        } elseif($contents instanceof Textflow) {
+            $options['textflow'] = $contents;
+            $options['fitTextflow'] = $contentOptions;
+            $contents = null;
         } else {
             $options['fitTextline'] = array_merge($this->textOptions, $contentOptions);
         }
@@ -130,7 +134,7 @@ class Table implements Handleable
      * Set the default font.
      *
      * @param Font $font
-     * @param int $size
+     * @param float $size
      */
     public function setFont(Font $font, $size)
     {
