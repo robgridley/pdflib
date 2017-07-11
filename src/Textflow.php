@@ -22,9 +22,9 @@ class Textflow implements Handleable
      * Create a new textflow instance.
      *
      * @param PdfLibAdapter $adapter
-     * @param string $text
      * @param Font $font
      * @param float $size
+     * @param string $text
      * @param array $options
      */
     public function __construct(PdfLibAdapter $adapter, Font $font, $size, $text = null, array $options = [])

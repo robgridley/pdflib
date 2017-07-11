@@ -177,16 +177,38 @@ class PdfBuilder implements ArrayAccess
 
     /**
      * Create a new textflow instance.
-     *
-     * @param string $text
      * @param Font $font
      * @param float $size
+     * @param string $text
      * @param array $options
      * @return Textflow
      */
     public function newTextflow(Font $font, $size, $text = null, array $options = [])
     {
         return new Textflow($this->adapter, $font, $size, $text, $options);
+    }
+
+    /**
+     * Place a textflow on the current page.
+     *
+     * @param Textflow $textflow
+     * @param float $x
+     * @param float $y
+     * @param float $width
+     * @param float $height
+     * @param array $options
+     * @return string
+     */
+    public function placeTextflow(Textflow $textflow, $x, $y, $width, $height, array $options = [])
+    {
+        $llx = $x;
+        $lly = $y + $height;
+        $urx = $x + $width;
+        $ury = $y;
+
+        $result = $this->adapter->fitTextflow($textflow, $llx, $lly, $urx, $ury, $options);
+
+        return $result == '_stop' ? false : true;
     }
 
     /**
