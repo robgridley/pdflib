@@ -10,7 +10,7 @@ class RgbColorSpec extends ObjectBehavior
 {
     function it_creates_rgb_colors()
     {
-        $this->beConstructedWith(100, 50, 200);
-        $this->__toString()->shouldReturn('{rgb 0.3921568627451 0.19607843137255 0.7843137254902}');
+        $this->beConstructedWith(51, 102, 153);
+        $this->toArray()->shouldReturn(['rgb', 0.2, 0.4, 0.6]);
     }
 }
