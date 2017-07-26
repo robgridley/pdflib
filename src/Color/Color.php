@@ -2,7 +2,9 @@
 
 namespace Pdf\Color;
 
-abstract class Color
+use Pdf\Arrayable;
+
+abstract class Color implements Arrayable
 {
     /**
      * The color values.
@@ -12,12 +14,12 @@ abstract class Color
     protected $values = [];
 
     /**
-     * Convert the instance to a string.
+     * Convert the instance to an array.
      *
-     * @return string
+     * @return array
      */
-    public function __toString()
+    public function toArray()
     {
-        return sprintf('{%s %s}', $this->keyword, implode(' ', $this->values));
+        return array_merge([$this->keyword], array_values($this->values));
     }
 }

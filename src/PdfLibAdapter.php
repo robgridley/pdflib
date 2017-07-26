@@ -690,6 +690,10 @@ class PdfLibAdapter
             return $value ? 'true' : 'false';
         }
 
+        if ($value instanceof Arrayable) {
+            $value = $value->toArray();
+        }
+
         if (is_array($value)) {
             return '{' . $this->createOptionList($value) . '}';
         }
