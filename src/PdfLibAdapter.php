@@ -438,14 +438,27 @@ class PdfLibAdapter
     /**
      * Wrapper for PDFlib::info_image.
      *
-     * @param $image
-     * @param $key
+     * @param Handleable|int $image
+     * @param string $key
      * @param array $options
      * @return mixed
      */
     public function infoImage($image, $key, $options = [])
     {
         return $this->lib->info_image($this->getHandleFrom($image), $key, $this->createOptionList($options));
+    }
+
+    /**
+     * Wrapper for PDFlib::fit_image.
+     *
+     * @param Handleable|int $image
+     * @param float $x
+     * @param float $y
+     * @param array $options
+     */
+    public function fitImage($image, $x = 0.0, $y = 0.0, $options = [])
+    {
+        $this->lib->fit_image($this->getHandleFrom($image), $x, $y, $this->createOptionList($options));
     }
 
     /**

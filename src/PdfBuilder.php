@@ -137,9 +137,26 @@ class PdfBuilder implements ArrayAccess
      */
     public function placeGraphics(Graphics $graphic, $x, $y, $width, $height, array $options = [])
     {
-        $options['boxSize'] = [$width, $height];
+        $options = array_merge(['boxSize' => [$width, $height], 'fitMethod' => 'auto'], $options);
 
         $this->adapter->fitGraphics($graphic, $x, $y, $options);
+    }
+
+    /**
+     * Place an image on the current page.
+     *
+     * @param Image $image
+     * @param float $x
+     * @param float $y
+     * @param float $width
+     * @param float $height
+     * @param array $options
+     */
+    public function placeImage(Image $image, $x, $y, $width, $height, array $options = [])
+    {
+        $options = array_merge(['boxSize' => [$width, $height], 'fitMethod' => 'auto'], $options);
+
+        $this->adapter->fitImage($image, $x, $y, $options);
     }
 
     /**
