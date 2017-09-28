@@ -161,6 +161,16 @@ class PdiDocument implements Handleable, Iterator, Countable
     }
 
     /**
+     * Get the adapter instance.
+     *
+     * @return PdfLibAdapter
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
+
+    /**
      * Get the document handle.
      *
      * @return int

@@ -149,4 +149,14 @@ class Pcos
     {
         return $this->adapter->pcosGetStream($this->document, $path);
     }
+
+    /**
+     * Get the adapter instance.
+     *
+     * @return PdfLibAdapter
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
 }

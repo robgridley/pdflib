@@ -182,6 +182,16 @@ class PdiPage implements Handleable
     }
 
     /**
+     * Get the adapter instance.
+     *
+     * @return PdfLibAdapter
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
+
+    /**
      * Get the page handle.
      *
      * @return int

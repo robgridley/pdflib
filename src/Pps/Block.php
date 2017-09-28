@@ -106,4 +106,14 @@ abstract class Block
     {
         return $this->properties['rect'][3] - $this->properties['rect'][1];
     }
+
+    /**
+     * Get the adapter instance.
+     *
+     * @return PdfLibAdapter
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
 }

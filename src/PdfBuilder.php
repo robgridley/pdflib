@@ -194,6 +194,7 @@ class PdfBuilder implements ArrayAccess
 
     /**
      * Create a new textflow instance.
+     *
      * @param Font $font
      * @param float $size
      * @param string $text
@@ -259,7 +260,7 @@ class PdfBuilder implements ArrayAccess
      *
      * @return PdfLibAdapter
      */
-    public function adapter()
+    public function getAdapter()
     {
         return $this->adapter;
     }

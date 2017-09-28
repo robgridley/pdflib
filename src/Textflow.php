@@ -73,6 +73,16 @@ class Textflow implements Handleable
     }
 
     /**
+     * Get the adapter instance.
+     *
+     * @return PdfLibAdapter
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
+
+    /**
      * Get PDFlib handle for the instance.
      *
      * @return int

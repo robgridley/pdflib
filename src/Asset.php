@@ -75,6 +75,16 @@ abstract class Asset implements Handleable
     abstract public function getInfo($key, array $options = []);
 
     /**
+     * Get the adapter instance.
+     *
+     * @return PdfLibAdapter
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
+
+    /**
      * Get the instance as a PDFlib handle.
      *
      * @return int
