@@ -100,11 +100,11 @@ class PdiPage implements Handleable
      * Get the specified block.
      *
      * @param string $name
-     * @return \Pdf\Pps\Block
+     * @return \Pdf\Pps\Block|null
      */
     public function block($name)
     {
-        return $this->blocks()[$name];
+        return $this->blocks()->has($name) ? $this->blocks()->get($name) : null;
     }
 
     /**

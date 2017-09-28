@@ -59,6 +59,17 @@ class BlockCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
+     * Get the specified block.
+     *
+     * @param string $name
+     * @return Block
+     */
+    public function get($name)
+    {
+        return $this->blocks[$name];
+    }
+
+    /**
      * Get an iterator for the blocks.
      *
      * @return ArrayIterator
@@ -66,6 +77,17 @@ class BlockCollection implements IteratorAggregate, ArrayAccess, Countable
     public function getIterator()
     {
         return new ArrayIterator($this->blocks);
+    }
+
+    /**
+     * Determine if the specified block exists in the collection.
+     *
+     * @param string $name
+     * @return bool
+     */
+    public function has($name)
+    {
+        return array_key_exists($name, $this->blocks);
     }
 
     /**
@@ -79,25 +101,25 @@ class BlockCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * Determine if the specified block exists.
+     * Determine if the specified offset exists.
      *
-     * @param string $key
+     * @param string $offset
      * @return bool
      */
-    public function offsetExists($key)
+    public function offsetExists($offset)
     {
-        return array_key_exists($key, $this->blocks);
+        return $this->has($offset);
     }
 
     /**
-     * Get the specified block.
+     * Get the value for the specified offset.
      *
-     * @param string $key
+     * @param string $offset
      * @return Block
      */
-    public function offsetGet($key)
+    public function offsetGet($offset)
     {
-        return $this->blocks[$key];
+        return $this->get($offset);
     }
 
     /**
