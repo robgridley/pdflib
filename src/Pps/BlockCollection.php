@@ -151,7 +151,7 @@ class BlockCollection implements IteratorAggregate, ArrayAccess, Countable
      * @param string $type
      * @return BlockCollection
      */
-    public function ofType($type)
+    public function only($type)
     {
         $blocks = array_filter($this->blocks, function ($block) use ($type) {
             return is_a($block, $type);
