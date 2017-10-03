@@ -101,6 +101,16 @@ class BlockCollection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
+     * Get the keys (names) for the blocks.
+     *
+     * @return array
+     */
+    public function keys()
+    {
+        return array_keys($this->blocks);
+    }
+
+    /**
      * Determine if the specified offset exists.
      *
      * @param string $offset
