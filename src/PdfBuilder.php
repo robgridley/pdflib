@@ -18,6 +18,27 @@ class PdfBuilder implements ArrayAccess
     protected $adapter;
 
     /**
+     * The current page.
+     *
+     * @var int
+     */
+    protected $page = 0;
+
+    /**
+     * The total number of pages.
+     *
+     * @var int
+     */
+    protected $pages = 0;
+
+    /**
+     * The suspended pages.
+     *
+     * @var int[]
+     */
+    protected $suspended = [];
+
+    /**
      * Create a new instance.
      *
      * @param PdfLibAdapter|null $adapter
@@ -55,10 +76,36 @@ class PdfBuilder implements ArrayAccess
     public function addPage($width = 0, $height = 0, array $options = [])
     {
         if ($this->adapter->isScope('page')) {
-            $this->adapter->endPage();
+            $this->suspendPage();
         }
 
         $this->adapter->beginPage($width, $height, $options);
+        $this->page = ++$this->pages;
+    }
+
+    /**
+     * Resume the specified page.
+     *
+     * @param int $pageNumber
+     * @param array $options
+     */
+    public function resumePage($pageNumber, $options = [])
+    {
+        if ($this->adapter->isScope('page')) {
+            $this->suspendPage();
+        }
+
+        $this->adapter->resumePage(array_merge(compact('pageNumber'), $options));
+        $this->suspended = array_diff($this->suspended, [$pageNumber]);
+        $this->page = $pageNumber;
+    }
+
+    /**
+     * Resume the last suspended page.
+     */
+    public function resumeLast()
+    {
+        $this->resumePage(max($this->suspended));
     }
 
     /**
@@ -240,6 +287,8 @@ class PdfBuilder implements ArrayAccess
             $this->adapter->endPage();
         }
 
+        $this->endSuspended();
+
         $this->adapter->endDocument();
 
         return $this->adapter->getBuffer();
@@ -317,5 +366,30 @@ class PdfBuilder implements ArrayAccess
     public function __toString()
     {
         return $this->render();
+    }
+
+    /**
+     * Resume and end the suspended pages.
+     */
+    protected function endSuspended()
+    {
+        foreach ($this->suspended as $pageNumber) {
+            $this->resumePage($pageNumber);
+            $this->adapter->endPage();
+        }
+
+        $this->suspended = [];
+    }
+
+    /**
+     * Suspend the current page.
+     *
+     * @param array $options
+     */
+    protected function suspendPage($options = [])
+    {
+        $this->adapter->suspendPage($options);
+        $this->suspended[] = $this->page;
+        $this->page = 0;
     }
 }
