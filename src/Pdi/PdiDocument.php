@@ -32,6 +32,13 @@ class PdiDocument implements Handleable, Iterator, Countable
     protected $pages = [];
 
     /**
+     * The default page options.
+     *
+     * @var array
+     */
+    protected $pageOptions = [];
+
+    /**
      * The current page (for iteration).
      *
      * @var int
@@ -121,9 +128,11 @@ class PdiDocument implements Handleable, Iterator, Countable
             throw new OutOfBoundsException('Page does not exist');
         }
 
-        return array_key_exists($pageNumber, $this->pages) ?
-            $this->pages[$pageNumber] :
-            $this->pages[$pageNumber] = $this->newPdiPage($pageNumber, $options);
+        if (!array_key_exists($pageNumber, $this->pages)) {
+            $this->pages[$pageNumber] = $this->newPdiPage($pageNumber, array_merge($this->pageOptions, $options));
+        }
+
+        return $this->pages[$pageNumber];
     }
 
     /**
@@ -178,6 +187,16 @@ class PdiDocument implements Handleable, Iterator, Countable
     public function getHandle()
     {
         return $this->handle;
+    }
+
+    /**
+     * Set the default page options.
+     *
+     * @param array $options
+     */
+    public function setPageOptions(array $options)
+    {
+        $this->pageOptions = $options;
     }
 
     /**
