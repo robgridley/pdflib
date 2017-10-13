@@ -116,7 +116,7 @@ class PdiPage implements Handleable
     {
         $blocks = [];
 
-        foreach ($this->pcos('blocks') as $pcos) {
+        foreach ((array)$this->pcos('blocks') as $pcos) {
             $blocks[] = $this->newBlock($pcos);
         }
 
