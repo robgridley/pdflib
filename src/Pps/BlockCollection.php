@@ -163,9 +163,20 @@ class BlockCollection implements IteratorAggregate, ArrayAccess, Countable
      */
     public function only($type)
     {
-        $blocks = array_filter($this->blocks, function ($block) use ($type) {
+        return $this->filter(function ($block) use ($type) {
             return is_a($block, $type);
         });
+    }
+
+    /**
+     * Filter blocks using the specified function.
+     *
+     * @param callable $callback
+     * @return BlockCollection
+     */
+    public function filter(callable $callback)
+    {
+        $blocks = array_filter($this->blocks, $callback);
 
         return $this->newCollection($blocks);
     }
