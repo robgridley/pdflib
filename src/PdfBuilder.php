@@ -2,13 +2,15 @@
 
 namespace Pdf;
 
+use Countable;
 use ArrayAccess;
 use LogicException;
 use Pdf\Pdi\PdiPage;
+use IteratorAggregate;
 use Pdf\Pdi\PdiDocument;
 use BadMethodCallException;
 
-class PdfBuilder implements ArrayAccess
+class PdfBuilder implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * The adapter instance.
@@ -75,9 +77,7 @@ class PdfBuilder implements ArrayAccess
      */
     public function addPage($width = 0, $height = 0, array $options = [])
     {
-        if ($this->adapter->isScope('page')) {
-            $this->suspendPage();
-        }
+        $this->suspendPage();
 
         $this->adapter->beginPage($width, $height, $options);
         $this->page = ++$this->pages;
@@ -91,9 +91,7 @@ class PdfBuilder implements ArrayAccess
      */
     public function resumePage($pageNumber, $options = [])
     {
-        if ($this->adapter->isScope('page')) {
-            $this->suspendPage();
-        }
+        $this->suspendPage();
 
         $this->adapter->resumePage(array_merge(compact('pageNumber'), $options));
         $this->suspended = array_diff($this->suspended, [$pageNumber]);
@@ -283,10 +281,7 @@ class PdfBuilder implements ArrayAccess
      */
     public function render()
     {
-        if ($this->adapter->isScope('page')) {
-            $this->adapter->endPage();
-        }
-
+        $this->suspendPage();
         $this->endSuspended();
 
         $this->adapter->endDocument();
@@ -388,8 +383,33 @@ class PdfBuilder implements ArrayAccess
      */
     protected function suspendPage($options = [])
     {
-        $this->adapter->suspendPage($options);
-        $this->suspended[] = $this->page;
-        $this->page = 0;
+        if ($this->adapter->isScope('page')) {
+            $this->adapter->suspendPage($options);
+            $this->suspended[] = $this->page;
+            sort($this->suspended);
+            $this->page = 0;
+        }
+    }
+
+    /**
+     * Count the number of pages.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return $this->pages;
+    }
+
+    /**
+     * Retrieve the suspended pages iterator.
+     *
+     * @return SuspendedPageIterator
+     */
+    public function getIterator()
+    {
+        $this->suspendPage();
+
+        return new SuspendedPageIterator($this->suspended, $this);
     }
 }
