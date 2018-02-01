@@ -57,9 +57,12 @@ class PdiPage implements Handleable
      */
     public function __construct(PdfLibAdapter $adapter, PdiDocument $document, $pageNumber, array $options = [])
     {
-        $this->handle = $adapter->openPdiPage($document, $pageNumber, $options);
-
         $this->adapter = $adapter;
+
+        if (!$this->adapter->isScope(PdfLibAdapter::SCOPE_OBJECT)) {
+            $this->handle = $this->adapter->openPdiPage($document, $pageNumber, $options);
+        }
+
         $this->document = $document;
         $this->pageNumber = $pageNumber;
     }
@@ -69,7 +72,7 @@ class PdiPage implements Handleable
      */
     public function __destruct()
     {
-        if (!$this->adapter->isScope('object')) {
+        if (!$this->adapter->isScope(PdfLibAdapter::SCOPE_OBJECT)) {
             $this->adapter->closePdiPage($this);
         }
     }

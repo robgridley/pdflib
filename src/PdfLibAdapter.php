@@ -7,6 +7,15 @@ use PDFlibException;
 
 class PdfLibAdapter
 {
+    const SCOPE_OBJECT = 'object';
+    const SCOPE_DOCUMENT = 'document';
+    const SCOPE_GLYPH = 'glyph';
+    const SCOPE_FONT = 'font';
+    const SCOPE_PATTERN = 'pattern';
+    const SCOPE_TEMPLATE = 'template';
+    const SCOPE_PAGE = 'page';
+    const SCOPE_PATH = 'path';
+
     /**
      * The PDFlib instance.
      *
@@ -117,7 +126,7 @@ class PdfLibAdapter
     /**
      * Gets the current scope.
      *
-     * @return mixed
+     * @return string
      */
     public function getScope()
     {
@@ -125,7 +134,7 @@ class PdfLibAdapter
     }
 
     /**
-     * Determine if a given scope matches the current scope.
+     * Determine if the specified scope matches the current scope.
      *
      * @param string $scope
      * @return bool
