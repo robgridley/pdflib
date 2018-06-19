@@ -13,4 +13,10 @@ class LabColorSpec extends ObjectBehavior
         $this->beConstructedWith(100, -50, 50);
         $this->toArray()->shouldReturn(['lab', 100, -50, 50]);
     }
+
+    function it_can_be_converted_to_a_string()
+    {
+        $this->beConstructedWith(100, -50, 50);
+        $this->__toString()->shouldReturn('{lab 100 -50 50}');
+    }
 }

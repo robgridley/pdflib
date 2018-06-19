@@ -13,4 +13,10 @@ class GrayColorSpec extends ObjectBehavior
         $this->beConstructedWith(0.5);
         $this->toArray()->shouldReturn(['gray', 0.5]);
     }
+
+    function it_can_be_converted_to_a_string()
+    {
+        $this->beConstructedWith(0.5);
+        $this->__toString()->shouldReturn('{gray 0.5}');
+    }
 }

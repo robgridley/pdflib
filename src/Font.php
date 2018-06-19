@@ -74,4 +74,14 @@ class Font implements Handleable
     {
         return $this->handle;
     }
+
+    /**
+     * Convert the instance to a string for use in inline option lists.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getHandle();
+    }
 }
