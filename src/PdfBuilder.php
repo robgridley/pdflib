@@ -7,6 +7,7 @@ use ArrayAccess;
 use LogicException;
 use Pdf\Pdi\PdiPage;
 use IteratorAggregate;
+use Pdf\Color\SpotColor;
 use Pdf\Pdi\PdiDocument;
 use BadMethodCallException;
 
@@ -143,6 +144,18 @@ class PdfBuilder implements ArrayAccess, Countable, IteratorAggregate
     public function loadFont($name, $encoding, $options = [])
     {
         return new Font($this->adapter, $name, $encoding, $options);
+    }
+
+    /**
+     * Load a spot colour from the built-in libraries.
+     *
+     * @param string $name
+     * @param float $tint
+     * @return SpotColor
+     */
+    public function loadSpotColor($name, $tint = 1.0)
+    {
+        return new SpotColor($this->adapter, $name, $tint);
     }
 
     /**

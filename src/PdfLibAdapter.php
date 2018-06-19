@@ -679,6 +679,17 @@ class PdfLibAdapter
     }
 
     /**
+     * Wrapper for PDFlib::makespotcolor.
+     *
+     * @param string $name
+     * @return int
+     */
+    public function makeSpotColor($name)
+    {
+        return $this->lib->makespotcolor($name);
+    }
+
+    /**
      * Convert an array to a PDFlib option list.
      *
      * @param array $options
