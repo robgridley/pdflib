@@ -370,7 +370,7 @@ class PdfLibAdapter
      */
     public function fillTextBlock($page, $name, $contents, $options = [])
     {
-        $this->lib->fill_textblock($this->getHandleFrom($page), $name, $contents, $this->createOptionList($options));
+        return $this->lib->fill_textblock($this->getHandleFrom($page), $name, $contents, $this->createOptionList($options));
     }
 
     /**
