@@ -122,10 +122,14 @@ abstract class Block
      *
      * @return array
      */
-    public function getProperties(): array
+    public function getProperties()
     {
         $propertiesArray = $this->properties;
-        $propertiesArray['custom'] = $propertiesArray['custom']->toArray();
+        
+        if (isset($propertiesArray['custom'])) {
+            $propertiesArray['custom'] = $propertiesArray['custom']->toArray();
+        }
+        
         return $propertiesArray;
     }
 
