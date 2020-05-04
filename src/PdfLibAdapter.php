@@ -690,6 +690,96 @@ class PdfLibAdapter
     }
 
     /**
+     * Draw a rectangle.
+     *
+     * @param float $x
+     * @param float $y
+     * @param float $width
+     * @param float $height
+     */
+    public function rect(float $x, float $y, float $width, float $height): void
+    {
+        $this->lib->rect($x, $y, $width, $height);
+    }
+
+    /**
+     * Draw a circle.
+     *
+     * @param float $x
+     * @param float $y
+     * @param float $radius
+     */
+    public function circle(float $x, float $y, float $radius): void
+    {
+        $this->lib->circle($x, $y, $radius);
+    }
+
+    /**
+     * Set the current color space and color for the graphics and text state.
+     *
+     * @param string $type
+     * @param string $colorSpace
+     * @param float|int $c1
+     * @param float|int|null $c2
+     * @param float|int|null $c3
+     * @param float|int|null $c4
+     */
+    public function setColor(string $type, string $colorSpace, $c1, $c2 = null, $c3 = null, $c4 = null): void
+    {
+        $this->lib->setcolor($type, $colorSpace, $c1, $c2, $c3, $c4);
+    }
+
+    /**
+     * Fill the interior of the path with the current fill color.
+     */
+    public function fill(): void
+    {
+        $this->lib->fill();
+    }
+
+    /**
+     * Stroke the path with the current line width and current stroke color.
+     */
+    public function stroke(): void
+    {
+        $this->lib->stroke();
+    }
+
+    /**
+     * Fill and stroke the path with the current fill and stroke color.
+     */
+    public function fillStroke(): void
+    {
+        $this->lib->fill_stroke();
+    }
+
+    /**
+     * Set the current line width.
+     *
+     * @param float $width
+     */
+    public function setLineWidth(float $width): void
+    {
+        $this->lib->setlinewidth($width);
+    }
+
+    /**
+     * Save the current graphics state.
+     */
+    public function save(): void
+    {
+        $this->lib->save();
+    }
+
+    /**
+     * Restore the previously saved graphics state.
+     */
+    public function restore(): void
+    {
+        $this->lib->restore();
+    }
+
+    /**
      * Convert an array to a PDFlib option list.
      *
      * @param array $options

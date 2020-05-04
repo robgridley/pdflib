@@ -11,6 +11,9 @@ use Pdf\Color\SpotColor;
 use Pdf\Pdi\PdiDocument;
 use BadMethodCallException;
 
+/**
+ * @mixin PdfLibAdapter
+ */
 class PdfBuilder implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
@@ -285,6 +288,20 @@ class PdfBuilder implements ArrayAccess, Countable, IteratorAggregate
         $result = $this->adapter->fitTextflow($textflow, $llx, $lly, $urx, $ury, $options);
 
         return $result == '_stop' ? false : true;
+    }
+
+    /**
+     * Draw vector graphics.
+     *
+     * @param callable $callback
+     */
+    public function draw(callable $callback): void
+    {
+        $this->adapter->save();
+
+        $callback(new Drawing($this->adapter));
+
+        $this->adapter->restore();
     }
 
     /**
