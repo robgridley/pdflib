@@ -116,4 +116,21 @@ abstract class Block
     {
         return $this->adapter;
     }
+
+    /**
+     * Return all properties
+     *
+     * @return array
+     */
+    public function getProperties()
+    {
+        $propertiesArray = $this->properties;
+        
+        if (isset($propertiesArray['custom'])) {
+            $propertiesArray['custom'] = $propertiesArray['custom']->toArray();
+        }
+        
+        return $propertiesArray;
+    }
+
 }

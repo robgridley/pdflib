@@ -12,6 +12,6 @@ class TextBlock extends Block
      */
     public function fill($contents, array $options = ['embedding'])
     {
-        $this->adapter->fillTextBlock($this->page, $this->name, $contents, $options);
+        return $this->adapter->fillTextBlock($this->page, $this->name, $contents, $options);
     }
 }
