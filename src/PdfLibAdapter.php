@@ -145,17 +145,6 @@ class PdfLibAdapter
     }
 
     /**
-     * Wrapper for PDFlib::scale.
-     *
-     * @param float $scaleX
-     * @param float $scaleY
-     */
-    public function scale($scaleX, $scaleY)
-    {
-        $this->lib->scale($scaleX, $scaleY);
-    }
-
-    /**
      * Wrapper for PDFlib::begin_document.
      *
      * @param string $filename
@@ -777,6 +766,38 @@ class PdfLibAdapter
     public function restore(): void
     {
         $this->lib->restore();
+    }
+
+    /**
+     * Translate the origin of the coordinate system.
+     *
+     * @param float $x
+     * @param float $y
+     */
+    public function translate(float $x, float $y): void
+    {
+        $this->lib->translate($x, $y);
+    }
+
+    /**
+     * Scale the coordinate system.
+     *
+     * @param float $x
+     * @param float $y
+     */
+    public function scale(float $x, float $y): void
+    {
+        $this->lib->scale($x, $y);
+    }
+
+    /**
+     * Rotate the coordinate system.
+     *
+     * @param float $phi
+     */
+    public function rotate(float $phi): void
+    {
+        $this->lib->rotate($phi);
     }
 
     /**
