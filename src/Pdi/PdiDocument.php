@@ -53,6 +53,13 @@ class PdiDocument implements Handleable, Iterator, Countable
     protected $totalPages = 0;
 
     /**
+     * The pages which should not be included when iterating.
+     *
+     * @var array
+     */
+    protected $ignoredPages = [];
+
+    /**
      * The pCOS instance.
      *
      * @var Pcos
@@ -112,7 +119,7 @@ class PdiDocument implements Handleable, Iterator, Countable
      */
     public function count()
     {
-        return $this->totalPages;
+        return count(array_diff(range(1, $this->totalPages), $this->ignoredPages));
     }
 
     /**
@@ -200,6 +207,16 @@ class PdiDocument implements Handleable, Iterator, Countable
     }
 
     /**
+     * Set the pages which should be ignored when iterating.
+     *
+     * @param array $pages
+     */
+    public function setIgnoredPages(array $pages)
+    {
+        $this->ignoredPages = $pages;
+    }
+
+    /**
      * Get the current page.
      *
      * @return PdiPage
@@ -217,6 +234,8 @@ class PdiDocument implements Handleable, Iterator, Countable
     public function next()
     {
         $this->currentPage++;
+
+        $this->skipIgnoredPages();
 
         if (!$this->valid()) {
             return false;
@@ -251,5 +270,17 @@ class PdiDocument implements Handleable, Iterator, Countable
     public function rewind()
     {
         $this->currentPage = 1;
+
+        $this->skipIgnoredPages();
+    }
+
+    /**
+     * Skip over any ignored pages.
+     */
+    protected function skipIgnoredPages()
+    {
+        while (in_array($this->currentPage, $this->ignoredPages)) {
+            $this->currentPage++;
+        }
     }
 }
