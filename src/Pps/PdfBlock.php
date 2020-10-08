@@ -12,6 +12,8 @@ class PdfBlock extends Block
      */
     public function fill($contents, array $options = [])
     {
+        $options = array_merge($this->fillOptions, $options);
+
         $this->adapter->fillPdfBlock($this->page, $this->name, $contents, $options);
     }
 }

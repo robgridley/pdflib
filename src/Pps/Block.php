@@ -30,6 +30,13 @@ abstract class Block
     protected $properties = [];
 
     /**
+     * The default fill options.
+     *
+     * @var array
+     */
+    protected $fillOptions = [];
+
+    /**
      * Create a new block instance.
      *
      * @param PdfLibAdapter $adapter
@@ -86,6 +93,27 @@ abstract class Block
      * @param array $options
      */
     abstract public function fill($contents, array $options = []);
+
+    /**
+     * Set the specified default fill option.
+     *
+     * @param string $key
+     * @param $value
+     */
+    public function setFillOption(string $key, $value)
+    {
+        $this->fillOptions[$key] = $value;
+    }
+
+    /**
+     * Set the default fill options.
+     *
+     * @param array $options
+     */
+    public function setFillOptions(array $options)
+    {
+        $this->fillOptions = $options;
+    }
 
     /**
      * Get the width of the block.
