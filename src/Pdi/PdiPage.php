@@ -86,6 +86,10 @@ class PdiPage implements Handleable
      */
     public function __get($key)
     {
+        if ($key == 'pageNumber') {
+            return $this->pageNumber;
+        }
+
         return $this->getInfo(strtolower($key));
     }
 

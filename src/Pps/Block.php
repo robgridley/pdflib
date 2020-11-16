@@ -136,6 +136,16 @@ abstract class Block
     }
 
     /**
+     * Get the page the block belongs to.
+     *
+     * @return PdiPage
+     */
+    public function getPage(): PdiPage
+    {
+        return $this->page;
+    }
+
+    /**
      * Get the adapter instance.
      *
      * @return PdfLibAdapter
