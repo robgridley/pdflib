@@ -753,6 +753,43 @@ class PdfLibAdapter
     }
 
     /**
+     * Set the current point for graphics output.
+     *
+     * @param float $x
+     * @param float $y
+     */
+    public function moveTo(float $x, float $y): void
+    {
+        $this->lib->moveto($x, $y);
+    }
+
+    /**
+     * Draw a line from the current point to another point.
+     *
+     * @param float $x
+     * @param float $y
+     */
+    public function lineTo(float $x, float $y): void
+    {
+        $this->lib->lineto($x, $y);
+    }
+
+    /**
+     * Draw a Bézier curve from the current point, using three more control points.
+     *
+     * @param float $x1
+     * @param float $y1
+     * @param float $x2
+     * @param float $y2
+     * @param float $x3
+     * @param float $y3
+     */
+    public function curveTo(float $x1, float $y1, float $x2, float $y2, float $x3, float $y3): void
+    {
+        $this->lib->curveto($x1, $y1, $x2, $y2, $x3, $y3);
+    }
+
+    /**
      * Save the current graphics state.
      */
     public function save(): void

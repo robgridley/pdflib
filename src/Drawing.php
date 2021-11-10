@@ -96,6 +96,52 @@ class Drawing
     }
 
     /**
+     * Set the current point for graphics output.
+     *
+     * @param float $x
+     * @param float $y
+     * @return $this
+     */
+    public function moveTo(float $x, float $y): self
+    {
+        $this->adapter->moveTo($x, $y);
+
+        return $this;
+    }
+
+    /**
+     * Draw a line from the current point to another point.
+     *
+     * @param float $x
+     * @param float $y
+     * @return $this
+     */
+    public function lineTo(float $x, float $y): self
+    {
+        $this->adapter->lineTo($x, $y);
+
+        return $this;
+    }
+
+    /**
+     * Draw a Bézier curve from the current point, using three more control points.
+     *
+     * @param float $x1
+     * @param float $y1
+     * @param float $x2
+     * @param float $y2
+     * @param float $x3
+     * @param float $y3
+     * @return $this
+     */
+    public function curveTo(float $x1, float $y1, float $x2, float $y2, float $x3, float $y3): self
+    {
+        $this->adapter->curveto($x1, $y1, $x2, $y2, $x3, $y3);
+
+        return $this;
+    }
+
+    /**
      * Paint the fill and stroke.
      *
      * @return $this
