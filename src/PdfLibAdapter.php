@@ -838,6 +838,47 @@ class PdfLibAdapter
     }
 
     /**
+     * Create a new layer definition.
+     *
+     * @param string $name
+     * @param array $options
+     * @return int
+     */
+    public function defineLayer(string $name, array $options = []): int
+    {
+        return $this->lib->define_layer($name, $this->createOptionList($options));
+    }
+
+    /**
+     * Define layer relationships.
+     *
+     * @param string $type
+     * @param array $options
+     */
+    public function setLayerDependency(string $type, array $options = []): void
+    {
+        $this->lib->set_layer_dependency($type, $this->createOptionList($options));
+    }
+
+    /**
+     * Start a layer for subsequent output on the page.
+     *
+     * @param int|Handleable $layer
+     */
+    public function beginLayer($layer): void
+    {
+        $this->lib->begin_layer($this->getHandleFrom($layer));
+    }
+
+    /**
+     * Deactivate all active layers.
+     */
+    public function endLayer(): void
+    {
+        $this->lib->end_layer();
+    }
+
+    /**
      * Convert an array to a PDFlib option list.
      *
      * @param array $options

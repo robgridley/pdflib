@@ -305,6 +305,18 @@ class PdfBuilder implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Create a new layer instance.
+     *
+     * @param string $name
+     * @param array $options
+     * @return Layer
+     */
+    public function newLayer(string $name, array $options = []): Layer
+    {
+        return new Layer($this->adapter, $name, $options);
+    }
+
+    /**
      * Render the document.
      *
      * @return string
