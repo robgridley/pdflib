@@ -56,7 +56,9 @@ class Table implements Handleable
      */
     public function __destruct()
     {
-        $this->delete();
+        if (!$this->adapter->isScope(PdfLibAdapter::SCOPE_OBJECT)) {
+            $this->adapter->deleteTable($this);
+        }
     }
 
     /**
@@ -68,18 +70,6 @@ class Table implements Handleable
     public function __get($key)
     {
         return $this->getInfo($key);
-    }
-
-    /**
-     * Delete the table.
-     *
-     * @return void
-     */
-    protected function delete()
-    {
-        if (!$this->adapter->isScope('object')) {
-            $this->adapter->deleteTable($this);
-        }
     }
 
     /**
