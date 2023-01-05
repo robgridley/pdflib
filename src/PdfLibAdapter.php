@@ -558,25 +558,25 @@ class PdfLibAdapter
      * Wrapper for PDFlib::add_textflow.
      *
      * @param int $textflow
-     * @param string $text
+     * @param string|null $text
      * @param array $options
      * @return int
      */
     public function addTextflow($textflow = 0, $text = null, array $options = [])
     {
-        return $this->lib->add_textflow($this->getHandleFrom($textflow), $text, $this->createOptionList($options));
+        return $this->lib->add_textflow($this->getHandleFrom($textflow), (string)$text, $this->createOptionList($options));
     }
 
     /**
      * Wrapper for PDFlib::create_textflow.
      *
-     * @param string $text
+     * @param string|null $text
      * @param array $options
      * @return int
      */
     public function createTextflow($text = null, array $options = [])
     {
-        return $this->lib->create_textflow($text, $this->createOptionList($options));
+        return $this->lib->create_textflow((string)$text, $this->createOptionList($options));
     }
 
     /**
@@ -607,6 +607,17 @@ class PdfLibAdapter
     public function infoTextflow($textflow, $key)
     {
         return $this->lib->info_textflow($this->getHandleFrom($textflow), $key);
+    }
+
+    /**
+     * Wrapper for PDFlib::delete_textflow.
+     *
+     * @param int|Handleable $textflow
+     * @return void
+     */
+    public function deleteTextflow($textflow)
+    {
+        $this->lib->delete_textflow($this->getHandleFrom($textflow));
     }
 
     /**

@@ -37,6 +37,16 @@ class Textflow implements Handleable
     }
 
     /**
+     * Destroy the textflow instance.
+     */
+    public function __destruct()
+    {
+        if (!$this->adapter->isScope(PdfLibAdapter::SCOPE_OBJECT)) {
+            $this->adapter->deleteTextflow($this);
+        }
+    }
+
+    /**
      * Append text to the textflow.
      *
      * @param string $text
