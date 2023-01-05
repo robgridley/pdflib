@@ -2,14 +2,14 @@
 
 namespace Pdf;
 
-use Countable;
 use ArrayAccess;
-use LogicException;
-use Pdf\Pdi\PdiPage;
+use BadMethodCallException;
+use Countable;
 use IteratorAggregate;
+use LogicException;
 use Pdf\Color\SpotColor;
 use Pdf\Pdi\PdiDocument;
-use BadMethodCallException;
+use Pdf\Pdi\PdiPage;
 
 /**
  * @mixin PdfLibAdapter
@@ -48,13 +48,14 @@ class PdfBuilder implements ArrayAccess, Countable, IteratorAggregate
      * Create a new instance.
      *
      * @param PdfLibAdapter|null $adapter
+     * @param string|null $filename
      * @param array $options
      */
-    public function __construct(PdfLibAdapter $adapter = null, array $options = [])
+    public function __construct(PdfLibAdapter $adapter = null, string $filename = null, array $options = [])
     {
         $this->adapter = $adapter ?: new PdfLibAdapter;
 
-        $this->adapter->beginDocument(null, $options);
+        $this->adapter->beginDocument($filename, $options);
     }
 
     /**
@@ -317,18 +318,28 @@ class PdfBuilder implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Render the document.
+     * Save the PDF and get the contents.
      *
      * @return string
      */
     public function render()
     {
+        $this->save();
+
+        return $this->adapter->getBuffer();
+    }
+
+    /**
+     * Save the PDF.
+     *
+     * @return void
+     */
+    public function save()
+    {
         $this->suspendPage();
         $this->endSuspended();
 
         $this->adapter->endDocument();
-
-        return $this->adapter->getBuffer();
     }
 
     /**

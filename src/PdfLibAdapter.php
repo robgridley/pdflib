@@ -147,12 +147,12 @@ class PdfLibAdapter
     /**
      * Wrapper for PDFlib::begin_document.
      *
-     * @param string $filename
+     * @param string|null $filename
      * @param array $options
      */
-    public function beginDocument($filename = null, $options = [])
+    public function beginDocument(string $filename = null, array $options = [])
     {
-        $this->lib->begin_document($filename, $this->createOptionList($options));
+        $this->lib->begin_document((string)$filename, $this->createOptionList($options));
     }
 
     /**

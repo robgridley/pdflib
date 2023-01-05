@@ -19,6 +19,6 @@
         }
     },
     "require-dev": {
-        "phpspec/phpspec": "^3.2"
+        "phpspec/phpspec": "^7.0"
     }
 }
