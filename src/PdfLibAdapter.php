@@ -623,7 +623,7 @@ class PdfLibAdapter
     {
         $table = $this->getHandleFrom($table);
 
-        return $this->lib->add_table_cell($table, $column, $row, $text, $this->createOptionList($options));
+        return $this->lib->add_table_cell($table, $column, $row, (string)$text, $this->createOptionList($options));
     }
 
     /**

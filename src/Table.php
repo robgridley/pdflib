@@ -52,6 +52,14 @@ class Table implements Handleable
     }
 
     /**
+     * Destroy the table instance.
+     */
+    public function __destruct()
+    {
+        $this->delete();
+    }
+
+    /**
      * Dynamically access properties.
      *
      * @param string $key
@@ -60,6 +68,18 @@ class Table implements Handleable
     public function __get($key)
     {
         return $this->getInfo($key);
+    }
+
+    /**
+     * Delete the table.
+     *
+     * @return void
+     */
+    protected function delete()
+    {
+        if (!$this->adapter->isScope('object')) {
+            $this->adapter->deleteTable($this);
+        }
     }
 
     /**
