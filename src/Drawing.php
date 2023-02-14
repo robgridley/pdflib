@@ -30,10 +30,14 @@ class Drawing
      * @param float $width
      * @return $this
      */
-    public function stroke(Color $color, $width = 1.0): self
+    public function stroke(Color $color, $width = 1.0, $dash = [], $dashPhase = 0.0): self
     {
         $this->adapter->setColor('stroke', ...$color->toArray());
         $this->adapter->setLineWidth($width);
+        $this->adapter->setGraphicsOption([
+            'dasharray' => empty($dash) ? 'none' : $dash,
+            'dashphase' => $dashPhase,
+        ]);
 
         return $this;
     }

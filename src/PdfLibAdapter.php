@@ -730,6 +730,17 @@ class PdfLibAdapter
     }
 
     /**
+     * Set one or more graphics appearance options.
+     *
+     * @param array $options
+     * @return void
+     */
+    public function setGraphicsOption(array $options): void
+    {
+        $this->lib->set_graphics_option($this->createOptionList($options));
+    }
+
+    /**
      * Fill the interior of the path with the current fill color.
      */
     public function fill(): void
