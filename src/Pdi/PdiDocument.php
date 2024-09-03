@@ -82,14 +82,6 @@ class PdiDocument implements Handleable, Iterator, Countable
     }
 
     /**
-     * Destroy the instance.
-     */
-    public function __destruct()
-    {
-        $this->unload();
-    }
-
-    /**
      * Load the specified document.
      *
      * @param string $contents
@@ -105,9 +97,9 @@ class PdiDocument implements Handleable, Iterator, Countable
     }
 
     /**
-     * Unload the document.
+     * Close the document.
      */
-    protected function unload()
+    public function close()
     {
         $this->adapter->closePdiDocument($this);
     }

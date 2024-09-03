@@ -68,13 +68,11 @@ class PdiPage implements Handleable
     }
 
     /**
-     * Destroy the page instance.
+     * Close the page instance.
      */
-    public function __destruct()
+    public function close()
     {
-        if (!$this->adapter->isScope(PdfLibAdapter::SCOPE_OBJECT)) {
-            $this->adapter->closePdiPage($this);
-        }
+        $this->adapter->closePdiPage($this);
     }
 
     /**
