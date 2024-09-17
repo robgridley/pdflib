@@ -318,6 +318,17 @@ class PdfBuilder implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Create a new graphics state instance.
+     *
+     * @param array $options
+     * @return GraphicsState
+     */
+    public function newGraphicsState(array $options): GraphicsState
+    {
+        return new GraphicsState($this->adapter, $options);
+    }
+
+    /**
      * Save the PDF and get the contents.
      *
      * @return string

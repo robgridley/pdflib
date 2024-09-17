@@ -828,6 +828,28 @@ class PdfLibAdapter
     }
 
     /**
+     * Create a graphics state object subject to various options.
+     *
+     * @param array $options
+     * @return int
+     */
+    public function createGraphicsState(array $options)
+    {
+        return $this->lib->create_gstate($this->createOptionList($options));
+    }
+
+    /**
+     * Activate a graphics state object.
+     *
+     * @param Handleable|int $state
+     * @return void
+     */
+    public function setGraphicsState($state): void
+    {
+        $this->lib->set_gstate($this->getHandleFrom($state));
+    }
+
+    /**
      * Translate the origin of the coordinate system.
      *
      * @param float $x
