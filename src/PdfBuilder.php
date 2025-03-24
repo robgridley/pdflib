@@ -7,6 +7,7 @@ use BadMethodCallException;
 use Countable;
 use IteratorAggregate;
 use LogicException;
+use Pdf\Color\Color;
 use Pdf\Color\SpotColor;
 use Pdf\Pdi\PdiDocument;
 use Pdf\Pdi\PdiPage;
@@ -303,6 +304,50 @@ class PdfBuilder implements ArrayAccess, Countable, IteratorAggregate
         $callback(new Drawing($this->adapter));
 
         $this->adapter->restore();
+    }
+
+    /**
+     * Create a new shading instance.
+     *
+     * @param string $type
+     * @param float $x0
+     * @param float $y0
+     * @param float $x1
+     * @param float $y1
+     * @param Color|null $startColor
+     * @param Color|null $endColor
+     * @param array $stopColors
+     * @param array $options
+     * @return Shading
+     */
+    public function newShading(string $type, float $x0, float $y0, float $x1, float $y1, Color $startColor = null, Color $endColor = null, array $stopColors = [], array $options = []): Shading
+    {
+        if (!is_null($startColor)) {
+            $options['startColor'] = $startColor;
+        }
+
+        if (!is_null($endColor)) {
+            $options['endColor'] = $endColor;
+        }
+
+        if (!empty($stopColors)) {
+            $options['stopColors'] = implode(' ', array_map(function (string $key) use ($stopColors) {
+                return "$key $stopColors[$key]";
+            }, array_keys($stopColors)));
+        }
+
+        return new Shading($this->adapter, $type, $x0, $y0, $x1, $y1, null, null, null, null, $options);
+    }
+
+    /**
+     * @param Shading $shading
+     * @return $this
+     */
+    public function fillShading(Shading $shading): self
+    {
+        $this->adapter->shadingFill($shading);
+
+        return $this;
     }
 
     /**

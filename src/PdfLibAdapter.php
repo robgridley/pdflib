@@ -765,6 +765,49 @@ class PdfLibAdapter
     }
 
     /**
+     * Define a color shading (color gradient) between two or more colors.
+     *
+     * @param string $type
+     * @param float $x0
+     * @param float $y0
+     * @param float $x1
+     * @param float $y1
+     * @param float|null $c1
+     * @param float|null $c2
+     * @param float|null $c3
+     * @param float|null $c4
+     * @param array $options
+     * @return int
+     */
+    public function shading(string $type, float $x0, float $y0, float $x1, float $y1, float $c1 = null, float $c2 = null, float $c3 = null, float $c4 = null, array $options = []): int
+    {
+        return $this->lib->shading($type, $x0, $y0, $x1, $y1, (float)$c1, (float)$c2, (float)$c3, (float)$c4, $this->createOptionList($options));
+    }
+
+    /**
+     * Define a shading pattern using a shading object.
+     *
+     * @param Handleable|int $shading
+     * @param array $options
+     * @return int
+     */
+    public function shadingPattern($shading, array $options = []): int
+    {
+        return $this->lib->shading_pattern($this->getHandleFrom($shading), $this->createOptionList($options));
+    }
+
+    /**
+     * Define a shading pattern using a shading object.
+     *
+     * @param Handleable|int $shading
+     * @return void
+     */
+    public function shadingFill($shading): void
+    {
+        $this->lib->shfill($this->getHandleFrom($shading));
+    }
+
+    /**
      * Set the current line width.
      *
      * @param float $width
