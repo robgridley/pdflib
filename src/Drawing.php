@@ -140,7 +140,43 @@ class Drawing
      */
     public function curveTo(float $x1, float $y1, float $x2, float $y2, float $x3, float $y3): self
     {
-        $this->adapter->curveto($x1, $y1, $x2, $y2, $x3, $y3);
+        $this->adapter->curveTo($x1, $y1, $x2, $y2, $x3, $y3);
+
+        return $this;
+    }
+
+    /**
+     * Close the current path.
+     *
+     * @return $this
+     */
+    public function closePath(): self
+    {
+        $this->adapter->closePath();
+
+        return $this;
+    }
+
+    /**
+     * Close the path, and stroke it.
+     *
+     * @return $this
+     */
+    public function closePathAndStroke(): self
+    {
+        $this->adapter->closePathStroke();
+
+        return $this;
+    }
+
+    /**
+     * Close the path, fill, and stroke it.
+     *
+     * @return $this
+     */
+    public function closePathFillAndStroke(): self
+    {
+        $this->adapter->closePathFillStroke();
 
         return $this;
     }

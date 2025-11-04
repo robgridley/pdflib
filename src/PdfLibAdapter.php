@@ -855,6 +855,36 @@ class PdfLibAdapter
     }
 
     /**
+     * Close the current path.
+     *
+     * @return void
+     */
+    public function closePath(): void
+    {
+        $this->lib->closepath();
+    }
+
+    /**
+     * Close the path, and stroke it.
+     *
+     * @return void
+     */
+    public function closePathStroke(): void
+    {
+        $this->lib->closepath_stroke();
+    }
+
+    /**
+     * Close the path, fill, and stroke it.
+     *
+     * @return void
+     */
+    public function closePathFillStroke(): void
+    {
+        $this->lib->closepath_fill_stroke();
+    }
+
+    /**
      * Save the current graphics state.
      */
     public function save(): void
